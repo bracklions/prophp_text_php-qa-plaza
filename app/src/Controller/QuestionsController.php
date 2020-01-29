@@ -13,6 +13,7 @@ class QuestionsController extends  AppController
     public function initialize()
     {
         parent::initialize();
+        $this->loadModel('Answers');
     }
 
     /**
@@ -27,5 +28,25 @@ class QuestionsController extends  AppController
         ]);
 
         $this->set(compac('questions'));
+    }
+
+    /**
+     * 質問詳細画面
+     *
+     * @param int $id 質問ID
+     * @return void
+     */
+    public function view(int $id)
+    {
+        $question = $this->Questions->get($id);
+
+        $answers = $this
+            ->Answers
+            ->find()
+            ->where(['Answers.question_id' => $id])
+            ->orderAsc('Answers.id')
+            ->all();
+
+        $this->set(compact('questions', 'answers'));
     }
 }
