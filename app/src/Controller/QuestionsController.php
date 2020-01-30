@@ -1,9 +1,9 @@
 <?php
 
-namespace App/Controller;
+namespace App\Controller;
 
 /**
- * Questuions COntroller
+ * Questuions Controller
  */
 class QuestionsController extends  AppController
 {
@@ -69,6 +69,8 @@ class QuestionsController extends  AppController
             ->where(['Answers.question_id' => $id])
             ->orderAsc('Answers.id')
             ->all();
+
+        $newAnswer = $this->Answers->newEntity();
 
         $this->set(compact('questions', 'answers'));
     }
