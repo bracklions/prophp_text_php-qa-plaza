@@ -23,11 +23,19 @@ class QuestionsController extends  AppController
      */
     public function index()
     {
-        $questions = $this->paginate($this->Questions->find(), [
+//        QuestioncTableに切り出し
+//        $query = $this->Questions->find();
+//        $query
+//            ->select(['answerd_count' => $query->func()->count('Answers.id')])
+//            ->leftJoinWith('Answers')
+//            ->group(['Questions.id'])
+//            ->enableAutoFields(true);
+
+        $questions = $this->paginate($this->Questions->findQuestionsWithAnsweredCount(), [
             'order' => ['Questions.id' => 'DESC']
         ]);
 
-        $this->set(compac('questions'));
+        $this->set(compact('questions'));
     }
 
     /**
